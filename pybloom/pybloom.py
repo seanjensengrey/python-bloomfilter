@@ -143,7 +143,8 @@ class BloomFilter(object):
         self.num_slices = num_slices
         self.bits_per_slice = bits_per_slice
         self.capacity = capacity
-        self.num_bits = num_slices * bits_per_slice
+        self.num_bits = (num_slices * bits_per_slice) + (8 - ((num_slices * bits_per_slice) % 8))
+        assert self.num_bits % 8 == 0
         self.count = count
         self.make_hashes = make_hashfuncs(self.num_slices, self.bits_per_slice)
 
